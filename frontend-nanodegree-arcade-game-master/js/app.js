@@ -1,3 +1,26 @@
+$( ".avtar" ).click(function() {
+            alert("Your Avatar Has Been Changed");
+        player.sprite = $(this).attr('src');
+    });
+
+
+// $( document ).ready(function() {
+//         $( ".avtar" ).click(function() {
+//             alert("Clicked on Girl Image");
+//          player.sprite =   $(".demo").children('h3').text();
+//          console.log(player.sprite);
+//     });
+// });
+
+// $( document ).ready(function() {
+//         $( ".avtar" ).click(function() {
+//             alert("Clicked on Girl Image");
+//          player.sprite =   $(this).attr('alt');
+//          console.log(player.sprite);
+//     });
+// });
+
+
 var c = 0;
 // Enemies our player must avoid
 var Enemy = function(x,y,speed) {
@@ -14,21 +37,20 @@ var Enemy = function(x,y,speed) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    this.x += dt * this.speed;
-    if (this.x >505){
-        this.x = 32;
-    }
-
-        allEnemies.forEach(function(enemy) {
-        if  ((player.y < (enemy.y + 40) && player.y > enemy.y) && (enemy.x >= player.x - 50.5 && enemy.x <= player.x + 50.5)){
-        console.log("Collision Occer   player.y " + player.y+ "Enemy.y ===="+ enemy.y);
-        player.x = 0;
-        player.y = 400;
-        c = 0;
-        $("#score")[0].innerText="Your Score is " + c;
-    }
-        });
-           // checkCollisions();
+        this.x += dt * this.speed;
+        if (this.x >505){
+        this.x = 0;
+        }
+        // allEnemies.forEach(function(enemy) {
+        // if  ((player.y < (enemy.y + 40) && player.y > enemy.y) && (enemy.x >= player.x - 50.5 && enemy.x <= player.x + 50.5)){
+        // console.log("Collision Occer   player.y " + player.y+ "Enemy.y ===="+ enemy.y);
+        // player.x = 0;
+        // player.y = 400;
+        // c = 0;
+        // $("#score")[0].innerText="Your Score is " + c;
+        // }
+        // });
+    checkCollisions();
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -38,20 +60,20 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 
-
 };
 
 var Player = function(x,y){                    // Now write your own player class
     this.x = x;
     this.y = y;
-    this.sprite = 'images/char-boy.png'
+    this.sprite = 'images/char-boy.png';
 
 };
 
-Player.prototype.update = function(dt){         //This class requires an update(),
+Player.prototype.update = function(dt){       //This class requires an update(),
 };
 
-Player.prototype.render = function() {        //  This class requires render() and
+Player.prototype.render = function() {
+    console.log(this.sprite);         //  This class requires render() and
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -69,11 +91,11 @@ Player.prototype.handleInput = function(a){
     }
 
     if (a == 'up'){
-        this.y = this.y - 82;
+        this.y = this.y - 83;
        // console.log(this.y);
     }
     if (a == 'down'){
-        this.y = this.y + 82;
+        this.y = this.y + 83;
         //console.log(this.y);
     }
 
@@ -139,16 +161,22 @@ document.addEventListener('keyup', function(e) {
 
 
 
-// checkCollisions = function(element){
+checkCollisions = function(){
+    allEnemies.forEach(function(enemy) {
+        if  ((player.y < (enemy.y + 40) && player.y > enemy.y) && (enemy.x >= player.x - 50.5 && enemy.x <= player.x + 50.5)){
+        console.log("Collision Occer   player.y " + player.y+ "Enemy.y ===="+ enemy.y);
+        player.x = 0;
+        player.y = 400;
+        c = 0;
+        $("#score")[0].innerText="Your Score is " + c;
+        }
+        });
+}
 
-//     if  ((player.y < (enemy.y + 40) && player.y > enemy.y) && (enemy.x >= player.x - 50.5 && enemy.x <= player.x + 50.5)){
-//         console.log("Collision Occer   player.y " + player.y+ "Enemy.y ===="+ enemy.y);
-//         player.x = 0;
-//         player.y = 400;
-//         console.log(enemy.y);
-//         console.log("Collision occour       ");
-//     }
-
-
-// }
-
+// $( document ).ready(function() {
+//         $( ".catgirl" ).click(function() {
+//             alert("Clicked on Girl Image");
+//          player.sprite =   $( "div.demo" ).text();
+//          console.log(player.sprite);
+//     });
+// });
